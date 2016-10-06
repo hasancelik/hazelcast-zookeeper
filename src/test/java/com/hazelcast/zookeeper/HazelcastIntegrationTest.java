@@ -4,6 +4,8 @@ import com.hazelcast.config.Config;
 import com.hazelcast.config.DiscoveryStrategyConfig;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
+import com.hazelcast.test.HazelcastTestSupport;
+import com.hazelcast.test.TestHazelcastInstanceFactory;
 import org.apache.curator.test.TestingServer;
 import org.junit.After;
 import org.junit.Before;
@@ -15,7 +17,7 @@ import java.io.IOException;
 
 import static junit.framework.TestCase.assertEquals;
 
-public class HazelcastIntegrationTest {
+public class HazelcastIntegrationTest extends HazelcastTestSupport {
 
     private TestingServer zkTestServer;
 
@@ -42,8 +44,11 @@ public class HazelcastIntegrationTest {
         discoveryStrategyConfig.addProperty(ZookeeperDiscoveryProperties.ZOOKEEPER_URL.key(), zookeeperURL);
         config.getNetworkConfig().getJoin().getDiscoveryConfig().addDiscoveryStrategyConfig(discoveryStrategyConfig);
 
-        HazelcastInstance instance1 = Hazelcast.newHazelcastInstance(config);
-        HazelcastInstance instance2 = Hazelcast.newHazelcastInstance(config);
+        TestHazelcastInstanceFactory instanceFactory = createHazelcastInstanceFactory(2);
+        HazelcastInstance instance1= instanceFactory.newHazelcastInstance(config);
+        HazelcastInstance instance2 = instanceFactory.newHazelcastInstance(config);
+//        HazelcastInstance instance1 = createHazelcastInstance(config);
+//        HazelcastInstance instance2 = createHazelcastInstance(config);
 
         int instance1Size = instance1.getCluster().getMembers().size();
         assertEquals(2, instance1Size);
