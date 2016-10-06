@@ -19,8 +19,6 @@ public class HazelcastIntegrationTest {
 
     private TestingServer zkTestServer;
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(HazelcastIntegrationTest.class);
-
     @Before
     public void setUp() throws Exception {
         zkTestServer = new TestingServer();
@@ -38,7 +36,7 @@ public class HazelcastIntegrationTest {
         config.getNetworkConfig().getJoin().getMulticastConfig().setEnabled(false);
         config.setProperty("hazelcast.discovery.enabled", "true");
 
-        LOGGER.info(zookeeperURL);
+        System.out.println(zookeeperURL);
 
         DiscoveryStrategyConfig discoveryStrategyConfig = new DiscoveryStrategyConfig(new ZookeeperDiscoveryStrategyFactory());
         discoveryStrategyConfig.addProperty(ZookeeperDiscoveryProperties.ZOOKEEPER_URL.key(), zookeeperURL);
