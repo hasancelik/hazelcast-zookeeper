@@ -8,6 +8,8 @@ import org.apache.curator.test.TestingServer;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 
@@ -16,6 +18,8 @@ import static junit.framework.TestCase.assertEquals;
 public class HazelcastIntegrationTest {
 
     private TestingServer zkTestServer;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(HazelcastIntegrationTest.class);
 
     @Before
     public void setUp() throws Exception {
@@ -29,10 +33,12 @@ public class HazelcastIntegrationTest {
 
     @Test
     public void testIntegration() {
-        String zookeeperURL = "localhost:" + zkTestServer.getPort();
+        String zookeeperURL = zkTestServer.getConnectString();
         Config config = new Config();
         config.getNetworkConfig().getJoin().getMulticastConfig().setEnabled(false);
         config.setProperty("hazelcast.discovery.enabled", "true");
+
+        LOGGER.info(zookeeperURL);
 
         DiscoveryStrategyConfig discoveryStrategyConfig = new DiscoveryStrategyConfig(new ZookeeperDiscoveryStrategyFactory());
         discoveryStrategyConfig.addProperty(ZookeeperDiscoveryProperties.ZOOKEEPER_URL.key(), zookeeperURL);
