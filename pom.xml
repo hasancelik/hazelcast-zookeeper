@@ -15,9 +15,12 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
         <jdk.version>1.6</jdk.version>
-        <hazelcast.version>3.7.1</hazelcast.version>
+        <hazelcast.version>3.7</hazelcast.version>
 
         <curator.version>2.9.0</curator.version>
+
+        <log4j.version>1.2.16</log4j.version>
+        <slf4j.version>1.6.0</slf4j.version>
 
         <junit.version>4.12</junit.version>
         <mockito.version>2.0.31-beta</mockito.version>
@@ -234,6 +237,22 @@
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>log4j</groupId>
+            <artifactId>log4j</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>${slf4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>${slf4j.version}</version>
         </dependency>
 
     </dependencies>
